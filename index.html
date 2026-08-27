@@ -16,6 +16,10 @@
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       overflow: hidden;
     }
+    body {
+      display: flex;
+      flex-direction: column;
+    }
 
     /* Background video + dark overlay, same treatment as the film school site */
     .bg-video {
@@ -47,7 +51,7 @@
     /* Split layout */
     .split {
       display: flex;
-      height: calc(100vh - 6rem);
+      flex: 1;
       min-height: 420px;
       width: 100%;
     }
@@ -145,6 +149,177 @@
     .pictures:hover .enter-btn { box-shadow: 0 12px 34px rgba(212, 175, 95, 0.7); }
     .filmschool:hover .enter-btn { box-shadow: 0 12px 34px rgba(234, 88, 12, 0.75); }
 
+    /* Careers entry point */
+    .careers-bar {
+      text-align: center;
+      padding: 0.9rem 1rem 0.2rem;
+    }
+    .careers-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: none;
+      border: 1px solid rgba(148, 163, 184, 0.32);
+      border-radius: 999px;
+      padding: 0.55rem 1.4rem;
+      color: #cbd5e1;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+    }
+    .careers-link:hover,
+    .careers-link:focus-visible {
+      color: #f8fafc;
+      border-color: rgba(212, 175, 95, 0.75);
+      background: rgba(212, 175, 95, 0.12);
+      transform: translateY(-2px);
+      outline: none;
+    }
+    .careers-link .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.18);
+    }
+
+    /* Careers modal */
+    .careers-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      background: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .careers-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    /* the hidden attribute must win over display: flex above */
+    .careers-overlay[hidden] { display: none; }
+    .careers-modal {
+      width: 100%;
+      max-width: 660px;
+      max-height: 85vh;
+      overflow-y: auto;
+      background: linear-gradient(160deg, #111c33, #0b1424);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 1.1rem;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+      padding: 1.9rem clamp(1.1rem, 3vw, 2rem) 1.6rem;
+      transform: translateY(14px) scale(0.98);
+      transition: transform 0.3s ease;
+    }
+    .careers-overlay.open .careers-modal { transform: translateY(0) scale(1); }
+
+    .careers-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+    .careers-head h2 {
+      font-size: clamp(1.3rem, 3vw, 1.7rem);
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+    .careers-head p {
+      margin-top: 0.4rem;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .careers-close {
+      flex-shrink: 0;
+      width: 2.2rem;
+      height: 2.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      border-radius: 0.6rem;
+      color: #cbd5e1;
+      font-size: 1.15rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .careers-close:hover,
+    .careers-close:focus-visible {
+      color: #f8fafc;
+      border-color: rgba(248, 250, 252, 0.6);
+      background: rgba(148, 163, 184, 0.14);
+      outline: none;
+    }
+
+    .job {
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 0.85rem;
+      background: rgba(15, 23, 42, 0.55);
+      padding: 1.15rem 1.25rem;
+      transition: border-color 0.25s ease, background 0.25s ease;
+    }
+    .job:hover { border-color: rgba(212, 175, 95, 0.5); background: rgba(212, 175, 95, 0.06); }
+    .job-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.55rem 0.7rem;
+    }
+    .job-title {
+      color: #f8fafc;
+      font-size: clamp(1.02rem, 2.2vw, 1.18rem);
+      font-weight: 800;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .job-title:hover,
+    .job-title:focus-visible {
+      color: #e2c37c;
+      text-decoration: underline;
+      outline: none;
+    }
+    .job-title .arrow { font-size: 0.85em; margin-left: 0.25rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.28rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .tag.contract {
+      color: #e8c87d;
+      background: rgba(212, 175, 95, 0.14);
+      border: 1px solid rgba(212, 175, 95, 0.4);
+    }
+    .tag.pay {
+      color: #fdba74;
+      background: rgba(249, 115, 22, 0.14);
+      border: 1px solid rgba(249, 115, 22, 0.4);
+    }
+    .job-meta {
+      margin-top: 0.7rem;
+      color: #94a3b8;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
     footer {
       text-align: center;
       padding: 1rem;
@@ -157,6 +332,7 @@
       html, body { overflow-y: auto; }
       .split {
         flex-direction: column;
+        flex: 0 0 auto;
         height: auto;
       }
       .panel { padding: 2.5rem 1.5rem; }
@@ -169,6 +345,8 @@
       .split:hover .panel,
       .split:hover .panel:hover { flex: 1; }
       .panel img { max-width: 70%; max-height: 320px; }
+      .careers-overlay { padding: 1rem; align-items: flex-start; }
+      .careers-modal { max-height: calc(100vh - 2rem); }
     }
   </style>
 </head>
@@ -199,6 +377,82 @@
     </a>
   </div>
 
+  <div class="careers-bar">
+    <button type="button" class="careers-link" id="careersOpen" aria-haspopup="dialog" aria-controls="careersModal">
+      <span class="dot" aria-hidden="true"></span>
+      Careers
+    </button>
+  </div>
+
   <footer>&copy; 2026 Adders Entertainment. All rights reserved.</footer>
+
+  <!-- Careers modal: current open positions -->
+  <div class="careers-overlay" id="careersModal" role="dialog" aria-modal="true" aria-labelledby="careersTitle" hidden>
+    <div class="careers-modal">
+      <div class="careers-head">
+        <div>
+          <h2 id="careersTitle">Join Adders Entertainment</h2>
+          <p>Here are the positions we're currently hiring for. Click a role title for the full job description and to apply.</p>
+        </div>
+        <button type="button" class="careers-close" id="careersClose" aria-label="Close careers">&times;</button>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <a class="job-title"
+             href="https://www.reed.co.uk/jobs/personal-manager-career-lead/57281670"
+             target="_blank"
+             rel="noopener noreferrer">Personal Manager &amp; Career Lead<span class="arrow" aria-hidden="true">&#8599;</span></a>
+          <span class="tag contract">Part Time to Permanent</span>
+          <span class="tag pay">Commission + Salary</span>
+        </div>
+        <p class="job-meta">View the full job description and apply on Reed.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var overlay = document.getElementById('careersModal');
+      var openBtn = document.getElementById('careersOpen');
+      var closeBtn = document.getElementById('careersClose');
+
+      function openCareers() {
+        overlay.hidden = false;
+        // next frame so the transition runs from the hidden state; the panel
+        // is only focusable once it is actually visible
+        requestAnimationFrame(function () {
+          overlay.classList.add('open');
+          closeBtn.focus();
+        });
+      }
+
+      function closeCareers() {
+        overlay.classList.remove('open');
+        openBtn.focus();
+        window.setTimeout(function () {
+          if (!overlay.classList.contains('open')) { overlay.hidden = true; }
+        }, 300);
+        if (window.location.hash === '#careers') {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+      }
+
+      openBtn.addEventListener('click', openCareers);
+      closeBtn.addEventListener('click', closeCareers);
+
+      // Click the backdrop (but not the panel itself) to close
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) { closeCareers(); }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) { closeCareers(); }
+      });
+
+      // Allow deep-linking straight to the openings, e.g. /#careers
+      if (window.location.hash === '#careers') { openCareers(); }
+    })();
+  </script>
 </body>
 </html>
