@@ -152,39 +152,57 @@
     /* Careers entry point */
     .careers-bar {
       text-align: center;
-      padding: 0.9rem 1rem 0.2rem;
+      padding: 1.3rem 1rem 0.5rem;
     }
     .careers-link {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      background: none;
-      border: 1px solid rgba(148, 163, 184, 0.32);
+      gap: 0.85rem;
+      /* blends both brand golds and oranges: this is the parent company, not either label */
+      background: linear-gradient(135deg, rgba(212, 175, 95, 0.42), rgba(234, 88, 12, 0.42));
+      border: 2px solid rgba(226, 188, 116, 0.85);
       border-radius: 999px;
-      padding: 0.55rem 1.4rem;
-      color: #cbd5e1;
+      padding: 1.15rem 3.4rem;
+      color: #f8fafc;
       font-family: inherit;
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
+      font-size: clamp(1rem, 1.7vw, 1.22rem);
+      font-weight: 800;
+      letter-spacing: 0.17em;
       text-transform: uppercase;
       cursor: pointer;
-      transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 26px rgba(212, 175, 95, 0.28);
+      transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease,
+                  transform 0.25s ease, box-shadow 0.25s ease;
     }
     .careers-link:hover,
     .careers-link:focus-visible {
-      color: #f8fafc;
-      border-color: rgba(212, 175, 95, 0.75);
-      background: rgba(212, 175, 95, 0.12);
-      transform: translateY(-2px);
+      border-color: rgba(233, 196, 124, 0.95);
+      background: linear-gradient(135deg, rgba(212, 175, 95, 0.62), rgba(234, 88, 12, 0.62));
+      transform: translateY(-4px) scale(1.04);
+      box-shadow: 0 16px 42px rgba(212, 175, 95, 0.45);
       outline: none;
     }
     .careers-link .dot {
-      width: 7px;
-      height: 7px;
+      width: 11px;
+      height: 11px;
       border-radius: 50%;
       background: #4ade80;
-      box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.18);
+      box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.2);
+      animation: hiring-pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes hiring-pulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.2); }
+      50%      { box-shadow: 0 0 0 9px rgba(74, 222, 128, 0.04); }
+    }
+    .careers-note {
+      margin-top: 0.6rem;
+      color: #94a3b8;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+    }
+    /* Respect a reduced-motion preference for the pulsing dot */
+    @media (prefers-reduced-motion: reduce) {
+      .careers-link .dot { animation: none; }
     }
 
     /* Careers modal */
@@ -345,6 +363,8 @@
       .split:hover .panel,
       .split:hover .panel:hover { flex: 1; }
       .panel img { max-width: 70%; max-height: 320px; }
+      .careers-bar { padding: 1.6rem 1rem 0.5rem; }
+      .careers-link { padding: 1rem 2.4rem; }
       .careers-overlay { padding: 1rem; align-items: flex-start; }
       .careers-modal { max-height: calc(100vh - 2rem); }
     }
@@ -382,6 +402,7 @@
       <span class="dot" aria-hidden="true"></span>
       Careers
     </button>
+    <p class="careers-note">We're hiring &mdash; see our open roles</p>
   </div>
 
   <footer>&copy; 2026 Adders Entertainment. All rights reserved.</footer>
